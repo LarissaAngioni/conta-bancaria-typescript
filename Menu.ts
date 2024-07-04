@@ -1,24 +1,39 @@
 import readlinesync = require("readline-sync");
 import { colors } from "./src/util/Colors";
 import { Conta } from "./src/model/Conta";
+import { ContaCorrente } from "./src/model/ContaCorrente";
+import { ContaPoupanca } from "./src/model/ContaPoupanca";
 
 export function main() {
 
     let opcao: number;
 
-    const c1: Conta = new Conta(1, 1234, 1, "Larissa", 80000.00);
+    // const c1: Conta = new Conta(1, 1234, 1, "Larissa", 80000.00);
 
-    c1.visualizar();
-    console.log(`O saldo da conta é: ${c1.saldo}`);
+    // c1.visualizar();
+    // console.log(`O saldo da conta é: ${c1.saldo}`);
     
-    c1.saldo = 900.00
-    console.log(`O saldo da conta é: ${c1.saldo}`);
+    // c1.saldo = 900.00
+    // console.log(`O saldo da conta é: ${c1.saldo}`);
 
-    c1.sacar(1000.00);
-    console.log(`O saldo da conta é: ${c1.saldo}`);
+    // c1.sacar(1000.00);
+    // console.log(`O saldo da conta é: ${c1.saldo}`);
 
-    c1.depositar(1000);
-    console.log(`O saldo da conta é: ${c1.saldo}`);
+    // c1.depositar(1000);
+    // console.log(`O saldo da conta é: ${c1.saldo}`);
+
+    // const cc1: ContaCorrente = new ContaCorrente(1, 1234, 1, "Larissa", 1000.00, 300.00);
+
+    // cc1.visualizar();
+
+    // cc1.sacar(1200);
+    // // cc1.visualizar();
+    // cc1.depositar(700);
+    // cc1.visualizar();
+
+    const cp1: ContaPoupanca = new ContaPoupanca(1, 1234, 2, "Larissa", 1000.00, 29);
+
+    cp1.visualizar();
 
     while (true) {
 
