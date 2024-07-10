@@ -6,7 +6,7 @@ import { ContaController } from "./src/controller/ContaController";
 
 export function main() {
 
-    let opcao, numero, agencia, tipo, saldo, limite, aniversario: number;
+    let opcao, numero, agencia, tipo, saldo, limite, aniversario, valor, numeroDestino: number;
     let titular: string;
     const tipoContas = ["Conta Corrente", "Conta Poupança"];
 
@@ -15,7 +15,7 @@ export function main() {
 
     contas.cadastrar(new ContaCorrente(contas.gerarNumero(), 1234, 1, "Larissa", 1000.00, 300.00));
 
-    contas.cadastrar(new ContaPoupanca(contas.gerarNumero(), 4321, 2, "Lari", 1000.00, 29));
+    contas.cadastrar(new ContaPoupanca(contas.gerarNumero(), 4321, 2, "Kelly", 1000.00, 29));
 
 
     while (true) {
@@ -35,17 +35,17 @@ export function main() {
         console.log("            6 - Sacar                                ");
         console.log("            7 - Depositar                            ");
         console.log("            8 - Transferir valores entre Contas      ");
-        console.log("            9 - Sair                                 ");
+        console.log("            9 - Buscar Conta por Nome                                 ");
+        console.log("            10 - Sair                                 ");
         console.log("                                                     ");
         console.log("*****************************************************");
-        console.log(colors.reset,
-            "                                                     ");
+        console.log("                                                     ");
 
-        console.log(colors.bg.black, colors.fg.redstrong
-            , "Entre com a opção desejada: ");
+        console.log(colors.bg.black, colors.fg.green, "                                                     ");
+        console.log("Entre com a opção desejada: ");
         opcao = readlinesync.questionInt("");
 
-        if (opcao == 9) {
+        if (opcao == 10) {
             console.log("\nBanco do Povo - A revolução começa aqui!");
             sobre();
             process.exit(0);
@@ -155,15 +155,49 @@ export function main() {
             case 6:
                 console.log("\n\nSaque\n\n");
 
+                console.log("Digite o Número da Conta: ");
+                numero = readlinesync.questionInt("");
+
+                console.log("Digite o valor do saque: ");
+                valor = readlinesync.questionFloat("");
+
+                contas.sacar(numero, valor);
+
                 keyPress();
                 break;
             case 7:
                 console.log("\n\nDepósito\n\n");
 
+                console.log("Digite o Número da Conta: ");
+                numero = readlinesync.questionInt("");
+
+                console.log("Digite o valor do depósito: ");
+                valor = readlinesync.questionFloat("");
+
+                contas.depositar(numero, valor);
+
                 keyPress();
                 break;
             case 8:
                 console.log("\n\nTransferência entre Contas\n\n");
+
+                console.log("Digite o Número da Conta de Origem: ");
+                numero = readlinesync.questionInt("");
+
+                console.log("Digite o Número da Conta de Destino: ");
+                numeroDestino = readlinesync.questionInt("");
+
+                console.log("Digite o valor da transferência: ");
+                valor = readlinesync.questionFloat("");
+
+                contas.transferir(numero, numeroDestino, valor);
+
+                keyPress();
+                break;
+            case 9:
+                console.log("Digite o Nome do Titular da Conta: ");
+                titular = readlinesync.question("");
+                contas.procurarPorTitular(titular)
 
                 keyPress();
                 break;

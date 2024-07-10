@@ -2,12 +2,19 @@ import { Conta } from "../model/Conta";
 import { ContaRepository } from "../repository/ContaRepository";
 
 export class ContaController implements ContaRepository{
-
     //Coleção array para armazenar os objetos Conta
     private listaContas: Array<Conta> = new Array<Conta>();
 
     // Controlar os números das Contas
     public numero: number = 0;
+
+    procurarPorTitular(titular: string): void {
+        let buscaPorTitular = this.listaContas.filter(c => 
+            c.titular.includes(titular)
+        );
+
+        buscaPorTitular.forEach(conta =>conta.visualizar());
+    }
 
     procurarPorNumero(numero: number): void {
         let buscaConta = this.buscarNoArray(numero);
@@ -58,15 +65,46 @@ export class ContaController implements ContaRepository{
     }
 
     sacar(numero: number, valor: number): void {
-        throw new Error("Method not implemented.");
+        let buscaConta = this.buscarNoArray(numero);
+
+        if(buscaConta !== null){
+            if(buscaConta.sacar(valor) === true){
+                console.log("\nSaque efetuado com sucesso!");
+            }
+        } else {
+            console.log(`A conta ${numero} não foi encontrada!`);
+            
+        }
     }
 
     depositar(numero: number, valor: number): void {
-        throw new Error("Method not implemented.");
+        let buscaConta = this.buscarNoArray(numero);
+
+        if(buscaConta !== null){
+            buscaConta.depositar(valor);
+            console.log("\nDepósito efetuado com sucesso!");
+
+        } else {
+            console.log(`A conta ${numero} não foi encontrada!`);
+            
+        }
     }
-    
+
     transferir(numeroOrigem: number, numeroDestino: number, valor: number): void {
-        throw new Error("Method not implemented.");
+        let buscaContaOrigem = this.buscarNoArray(numeroOrigem);
+        let buscaContaDestino = this.buscarNoArray(numeroDestino);
+
+        if(buscaContaOrigem !== null && buscaContaDestino !== null){
+            if(buscaContaOrigem.sacar(valor) === true){
+                buscaContaDestino.depositar(valor);
+
+                console.log("\nTransferência efetuada com sucesso!");
+            }
+            
+        } else {
+            console.log(`A conta não foi encontrada!`);
+            
+        }
     }
     
     //Métodos auxiliares
